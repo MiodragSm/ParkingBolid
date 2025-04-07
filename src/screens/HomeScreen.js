@@ -1,12 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import CityPicker from '../components/CityPicker';
 import { ZoneDataContext } from '../contexts/ZoneDataContext';
 import { VehicleContext } from '../contexts/VehicleContext';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const { selectedCity, cityZones, selectedZone, setSelectedZone } = useContext(ZoneDataContext);
   const { vehicles, selectedVehicle, setSelectedVehicle } = useContext(VehicleContext);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+          <Text style={{ color: '#fff', fontSize: 18, marginRight: 15 }}>⚙️</Text>
+        </TouchableOpacity>
+      ),
+      title: 'ParkingBolid',
+    });
+  }, [navigation]);
 
   const handlePayParking = () => {
     if (!selectedZone || !selectedVehicle) {
