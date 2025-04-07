@@ -1,0 +1,74 @@
+[
+  {
+    "grad": "Beograd",
+    "registracijaPrefix": "BG",
+    "zone": [
+      {
+        "id": "bg1",
+        "naziv": "Zona 1 (Crvena)",
+        "skraceniNaziv": "Zona 1",
+        "smsBroj": "9111",
+        "maxVreme": "60 min",
+        "cena": "56 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "bg2",
+        "naziv": "Zona 2 (Žuta)",
+        "skraceniNaziv": "Zona 2",
+        "smsBroj": "9112",
+        "maxVreme": "120 min",
+        "cena": "48 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      }
+    ]
+  },
+  {
+    "grad": "Novi Sad",
+    "registracijaPrefix": "NS",
+    "zone": [
+      {
+        "id": "ns1",
+        "naziv": "Crvena zona",
+        "skraceniNaziv": "Crvena",
+        "smsBroj": "8211",
+        "maxVreme": "120 min",
+        "cena": "53 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "ns2",
+        "naziv": "Plava zona",
+        "skraceniNaziv": "Plava",
+        "smsBroj": "8212",
+        "maxVreme": "Neograničeno",
+        "cena": "44 RSD/sat",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      }
+    ]
+  },
+  {
+    "grad": "Niš",
+    "registracijaPrefix": "NI",
+    "zone": [
+      {
+        "id": "ni1",
+        "naziv": "Zona 1 (Crvena)",
+        "skraceniNaziv": "Zona 1",
+        "smsBroj": "9181",
+        "maxVreme": "60 min",
+        "cena": "50 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "ni2",
+        "naziv": "Zona 2 (Plava)",
+        "skraceniNaziv": "Zona 2",
+        "smsBroj": "9182",
+        "maxVreme": "120 min",
+        "cena": "40 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      }
+    ]
+  }
+]
