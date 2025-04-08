@@ -17,6 +17,7 @@ const CityPicker = () => {
   const handleSelect = (cityName) => {
     setSelectedCity({ grad: cityName });
     setModalVisible(false);
+    setSearchQuery('');
   };
 
   return (
