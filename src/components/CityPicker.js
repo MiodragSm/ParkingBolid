@@ -1,11 +1,12 @@
 
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Modal, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, ScrollView, StyleSheet, TextInput } from 'react-native';
 import { ZoneDataContext } from '../contexts/ZoneDataContext';
 
 const CityPicker = () => {
   const { cities, selectedCity, setSelectedCity, detectingCity, detectedCity } = useContext(ZoneDataContext);
   const [modalVisible, setModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (detectedCity && !selectedCity) {
@@ -42,15 +43,26 @@ const CityPicker = () => {
           activeOpacity={1}
           onPressOut={() => setModalVisible(false)}>
           <View style={styles.modalContent}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search city..."
+              placeholderTextColor="#888"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
             <ScrollView>
-              {cities.map((cityName) => (
-                <TouchableOpacity
-                  key={cityName}
-                  style={styles.modalItem}
-                  onPress={() => handleSelect(cityName)}>
-                  <Text style={styles.modalItemText}>{cityName}</Text>
-                </TouchableOpacity>
-              ))}
+              {cities
+                .filter((cityName) =>
+                  cityName.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((cityName) => (
+                  <TouchableOpacity
+                    key={cityName}
+                    style={styles.modalItem}
+                    onPress={() => handleSelect(cityName)}>
+                    <Text style={styles.modalItemText}>{cityName}</Text>
+                  </TouchableOpacity>
+                ))}
             </ScrollView>
           </View>
         </TouchableOpacity>
@@ -98,6 +110,15 @@ const styles = StyleSheet.create({
   modalItemText: {
     color: '#fff',
     fontSize: 18,
+  },
+  searchInput: {
+    backgroundColor: '#333',
+    color: '#fff',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    margin: 10,
+    fontSize: 16,
   },
 });
 
