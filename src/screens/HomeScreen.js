@@ -42,19 +42,19 @@ const HomeScreen = () => {
 
   const handlePayParking = () => {
     if (!selectedZone || !selectedVehicle) {
-      Alert.alert('Please select a zone and a vehicle');
+      Alert.alert('Molimo izaberite zonu i tablice pre nego što platite parking!');
       return;
     }
     const smsNumber = selectedZone.smsBroj;
     const plate = selectedVehicle.plate.replace(/\s|-/g, '');
     const smsUrl = `sms:${smsNumber}?body=${plate}`;
-    Linking.openURL(smsUrl).catch(() => Alert.alert('Failed to open SMS app'));
+    Linking.openURL(smsUrl).catch(() => Alert.alert('Neuspešno otvaranje SMS aplikacije'));
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.cityRow}>
-        <Text style={styles.cityLabel}>Selected city:</Text>
+        <Text style={styles.cityLabel}>Izabrani grad:</Text>
         <CityPicker />
       </View>
 
@@ -99,13 +99,13 @@ const HomeScreen = () => {
 
       {vehicles && vehicles.length > 0 && (
         <View style={styles.cityRow}>
-          <Text style={styles.cityLabel}>License plate:</Text>
+          <Text style={styles.cityLabel}>Reg. Tablica:</Text>
           <VehiclePicker />
         </View>
       )}
 
       <TouchableOpacity style={styles.payButton} onPress={handlePayParking}>
-        <Text style={styles.payButtonText}>Pay Parking</Text>
+        <Text style={styles.payButtonText}>Plati Parking</Text>
       </TouchableOpacity>
     </View>
   );

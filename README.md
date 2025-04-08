@@ -1,97 +1,75 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Mobilna aplikacija za plaćanje parkinga
 
-# Getting Started
+## Opis projekta
+Ova mobilna aplikacija omogućava jednostavno i brzo plaćanje parkinga putem SMS poruka u većini gradova u Srbiji. Korisnici mogu da odaberu grad, zonu parkiranja i vozilo, a aplikacija automatski generiše SMS poruku za plaćanje, čime se izbegavaju greške i štedi vreme. Cilj aplikacije je da olakša svakodnevno korišćenje javnih parking prostora, uz intuitivan i pregledan interfejs.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Funkcionalnosti
+- Pregled dostupnih zona parkiranja u različitim gradovima Srbije
+- Automatsko generisanje SMS poruke za plaćanje parkinga
+- Čuvanje i izbor više registarskih oznaka vozila
+- Podešavanje podrazumevanog grada i vozila
+- Jednostavan izbor grada i zone putem preglednih menija
+- Sekcija za pomoć i podešavanja unutar aplikacije
 
-## Step 1: Start Metro
+## Tehnologije
+- **React Native** – razvoj aplikacije za Android i iOS platforme iz jednog koda
+- **JavaScript / TypeScript** – programski jezici korišćeni u razvoju
+- **React Context API** – za upravljanje globalnim stanjem aplikacije
+- **Metro bundler** – alat za razvoj i testiranje aplikacije
+- **CocoaPods** – upravljanje i instalacija iOS biblioteka
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Instalacija
+Pre instalacije, potrebno je podesiti razvojno okruženje prema [zvaničnom React Native vodiču](https://reactnative.dev/docs/environment-setup).
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+1. Klonirajte repozitorijum:
+    ```bash
+    git clone <URL do repozitorijuma>
+    cd <ime-projekta>
+    ```
 
-```sh
-# Using npm
-npm start
+2. Instalirajte JavaScript zavisnosti:
+    ```bash
+    npm install
+    # ili
+    yarn install
+    ```
 
-# OR using Yarn
-yarn start
-```
+3. (iOS) Instalirajte CocoaPods zavisnosti:
+    ```bash
+    bundle install
+    bundle exec pod install
+    ```
 
-## Step 2: Build and run your app
+4. Pokrenite Metro server:
+    ```bash
+    npm start
+    # ili
+    yarn start
+    ```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+5. Pokrenite aplikaciju:
+    - **Android:**
+        ```bash
+        npm run android
+        # ili
+        yarn android
+        ```
+    - **iOS:**
+        ```bash
+        npm run ios
+        # ili
+        yarn ios
+        ```
 
-### Android
+## Korišćenje
+Nakon pokretanja aplikacije:
+- Odaberite grad u kojem parkirate
+- Izaberite odgovarajuću zonu parkiranja
+- Odaberite ili unesite registarski broj vozila
+- Aplikacija će generisati SMS poruku koju možete poslati na odgovarajući broj za plaćanje parkinga
 
-```sh
-# Using npm
-npm run android
+## Slični programi
+Aplikacija je razvijena kao alternativa postojećim rešenjima za plaćanje parkinga putem mobilnih uređaja, sa fokusom na jednostavnost i pouzdanost.
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Licenca
+Ovaj projekat je open-source i dostupan pod MIT licencom.

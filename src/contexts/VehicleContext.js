@@ -19,7 +19,7 @@ export const VehicleProvider = ({ children }) => {
           if (parsed.length > 0) {setSelectedVehicle(parsed[0]);}
         }
       } catch (error) {
-        Alert.alert('Error loading vehicles');
+        Alert.alert('Greška pri učitavanju registarskih oznaka');
       } finally {
         setLoading(false);
       }
@@ -31,7 +31,7 @@ export const VehicleProvider = ({ children }) => {
     try {
       await AsyncStorage.setItem('vehicles', JSON.stringify(newVehicles));
     } catch (error) {
-      Alert.alert('Error saving vehicles');
+      Alert.alert('Greška pri snimanju registarskih oznaka');
     }
   };
 
@@ -61,7 +61,7 @@ export const VehicleProvider = ({ children }) => {
       setSelectedVehicle(null);
       await AsyncStorage.setItem('vehicles', JSON.stringify([]));
     } catch (error) {
-      Alert.alert('Error clearing vehicles');
+      Alert.alert('Greška pri brisanju registrarskih oznaka');
     }
   };
 

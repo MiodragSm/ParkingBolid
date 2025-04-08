@@ -25,7 +25,7 @@ export const ZoneDataProvider = ({ children }) => {
       setZones(parkingZonesData);
       setCities(licensePlateCities.map(item => item.grad));
     } catch (error) {
-      Alert.alert('Error loading parking zones data');
+      Alert.alert('Greška pri učitavanju podataka o zonama parkiranja');
     }
     // Helper: calculate distance between two lat/lng points (Haversine formula)
     const getDistance = (lat1, lon1, lat2, lon2) => {

@@ -23,9 +23,20 @@ const CityPicker = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={styles.dropdownButton}
+        style={[
+          styles.dropdownButton,
+          selectedCity && selectedCity.grad && selectedCity.grad.trim() !== ''
+            ? styles.dropdownButtonSelected
+            : null,
+        ]}
         onPress={() => setModalVisible(true)}>
-        <Text style={styles.dropdownButtonText}>
+        <Text
+          style={[
+            styles.dropdownButtonText,
+            selectedCity && selectedCity.grad && selectedCity.grad.trim() !== ''
+              ? styles.dropdownButtonTextSelected
+              : null,
+          ]}>
           {detectingCity
             ? 'Detecting city...'
             : selectedCity && selectedCity.grad && selectedCity.grad.trim() !== ''
@@ -46,7 +57,7 @@ const CityPicker = () => {
           <View style={styles.modalContent}>
             <TextInput
               style={styles.searchInput}
-              placeholder="Search city..."
+              placeholder="Pretraži grad..."
               placeholderTextColor="#888"
               value={searchQuery}
               onChangeText={setSearchQuery}
@@ -120,6 +131,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 10,
     fontSize: 16,
+  },
+  dropdownButtonSelected: {
+    backgroundColor: 'green',
+  },
+  dropdownButtonTextSelected: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 

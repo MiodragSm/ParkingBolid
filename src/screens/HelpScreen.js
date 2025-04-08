@@ -6,14 +6,15 @@ const HelpScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Help & Instructions</Text>
       <Text style={styles.text}>
-        - Select your city and parking zone.{'\n\n'}
-        - Add your vehicle(s) in Settings.{'\n\n'}
-        - Select a vehicle and zone, then tap "Pay Parking" to open SMS app.{'\n\n'}
-        - Confirm and send the SMS manually.{'\n\n'}
-        - Colors indicate different parking zones.{'\n\n'}
-        - Your vehicles are saved locally on your device.{'\n\n'}
-        - Location detection is optional and not yet implemented.{'\n\n'}
-        Enjoy using ParkingBolid!
+        - Izaberite svoj grad i zonu parkiranja.{'\n\n'}
+        - Dodajte registarke tablice u Podešavanjima.{'\n\n'}
+        - Izaberite tablice i zonu, zatim pritisnite "Plati parking" da otvorite SMS aplikaciju.{'\n\n'}
+        - Potvrdite i pošaljite SMS ručno.{'\n\n'}
+        - Boje označavaju različite parking zone.{'\n\n'}
+        - Registarske tablice su sačuvane lokalno na vašem uređaju.{'\n\n'}
+        - Program automtski detektuje vašu lokaciju i najbliži grad.{'\n\n'}
+        - Kompletna detekcija lokacije (Zonefensing) je opciona i još uvek nije implementirana.{'\n\n'}
+        Uživajte u korištenju ParkingBolid-a :)!
       </Text>
     </ScrollView>
   );

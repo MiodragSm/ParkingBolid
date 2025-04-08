@@ -27,7 +27,11 @@ const App = () => {
               contentStyle: { backgroundColor: '#000' },
             }}>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{ title: 'Podešavanja' }}
+            />
             <Stack.Screen name="Help" component={HelpScreen} />
           </Stack.Navigator>
         </NavigationContainer>

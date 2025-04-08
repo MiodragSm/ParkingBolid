@@ -6,27 +6,7 @@ import { Modal } from 'react-native';
 
 const SettingsScreen = () => {
   const { vehicles, addVehicle, updateVehicle, deleteVehicle, clearVehicles } = useContext(VehicleContext);
-  const clearAllVehicles = () => {
-    Alert.alert(
-      'Confirm Deletion',
-      'Are you sure you want to clear all licence plates? This action cannot be undone.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Yes, clear all',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await clearVehicles();
-              Alert.alert('All licence plates cleared');
-            } catch (error) {
-              Alert.alert('Error clearing licence plates');
-            }
-          },
-        },
-      ]
-    );
-  };
+  // Removed clearAllVehicles function
 
   const showSavedVehicles = async () => {
     try {
@@ -36,12 +16,12 @@ const SettingsScreen = () => {
         const list = parsed.map(
           (v, idx) => `${idx + 1}. ${v.nickname ? v.nickname + ' (' + v.plate + ')' : v.plate}`
         ).join('\n');
-        Alert.alert('Saved Licence Plates', list || 'No licence plates saved');
+        Alert.alert('Sačuvane tablice', list || 'Nema sačuvanih tablica');
       } else {
-        Alert.alert('Saved Licence Plates', 'No licence plates saved');
+        Alert.alert('Sačuvane tablice', 'Nema sačuvanih tablica');
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to load saved licence plates');
+      Alert.alert('Greška', 'Neuspešno učitavanje sačuvanih tablica');
     }
   };
   const [plate, setPlate] = useState('');
@@ -61,20 +41,20 @@ const SettingsScreen = () => {
   const handleSave = () => {
     const trimmedPlate = plate.trim();
     if (!trimmedPlate) {
-      Alert.alert('Plate is required');
+      Alert.alert('Tablica je obavezna');
       return;
     }
     if (trimmedPlate.length < 7 || trimmedPlate.length > 8) {
       Alert.alert(
-        'Invalid license plate',
-        'License plate must have at least 7 and no more than 8 characters, using only capital letters, numbers, and Serbian letters (Č, Ć, Š, Ž, Đ).'
+        'Neispravna tablica',
+        'Tablica mora imati najmanje 7 i najviše 8 karaktera, koristeći samo velika slova, brojeve i srpska slova (Č, Ć, Š, Ž, Đ).'
       );
       return;
     }
     if (nickname.trim().length > 12) {
       Alert.alert(
-        'Invalid nickname',
-        'Nickname must be no longer than 12 characters.'
+        'Neispravan nadimak',
+        'Nadimak ne sme biti duži od 12 karaktera.'
       );
       return;
     }
@@ -100,7 +80,7 @@ const SettingsScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Manage Vehicles</Text>
+        <Text style={styles.title}>Upravljanje Reg. Tablicama</Text>
 
         {vehicles
           .filter(v => v.plate && v.plate.trim() !== '')
@@ -111,10 +91,10 @@ const SettingsScreen = () => {
               </Text>
               <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() => handleEdit(idx)} style={styles.editButton}>
-                  <Text style={styles.editText}>Edit</Text>
+                  <Text style={styles.editText}>Izmeni</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => deleteVehicle(idx)} style={styles.deleteButton}>
-                  <Text style={styles.deleteText}>Delete</Text>
+                  <Text style={styles.deleteText}>Obriši</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -122,7 +102,7 @@ const SettingsScreen = () => {
 
         <TextInput
           style={styles.input}
-          placeholder="Plate"
+          placeholder="Tablica"
           placeholderTextColor="#888"
           value={plate}
           onChangeText={(text) => {
@@ -134,26 +114,22 @@ const SettingsScreen = () => {
         />
         <TextInput
           style={styles.input}
-          placeholder="Nickname (optional)"
+          placeholder="Nadimak (opciono)"
           placeholderTextColor="#888"
           value={nickname}
           onChangeText={setNickname}
         />
         <TouchableOpacity style={[styles.addButton, { marginTop: 30 }]} onPress={handleSave}>
           <Text style={styles.addButtonText}>
-            {editIndex === null ? 'ADD licence plate' : 'Update Vehicle'}
+            {editIndex === null ? 'Dodaj tablicu' : 'Ažuriraj tablicu'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.addButton, { backgroundColor: '#007AFF' }]} onPress={showSavedVehicles}>
-          <Text style={styles.addButtonText}>Show saved licence plates</Text>
+          <Text style={styles.addButtonText}>Prikaži sačuvane tablice</Text>
         </TouchableOpacity>
       </ScrollView>
 
-      <View style={styles.bottomButtonContainer}>
-        <TouchableOpacity style={[styles.addButton, { backgroundColor: 'red', marginTop: 0 }]} onPress={clearAllVehicles}>
-          <Text style={styles.addButtonText}>Clear all licence plates</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Removed Obriši sve tablice button */}
 
       <Modal
         visible={firstPlateModalVisible}
@@ -162,7 +138,7 @@ const SettingsScreen = () => {
         onRequestClose={() => setFirstPlateModalVisible(false)}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Please, enter here your first licence plate</Text>
+            <Text style={styles.modalText}>Unesite ovde vašu prvu tablicu</Text>
             <TouchableOpacity
               style={[styles.addButton, { marginTop: 20 }]}
               onPress={() => setFirstPlateModalVisible(false)}>
