@@ -7,7 +7,7 @@ Ova mobilna aplikacija omogućava jednostavno i brzo plaćanje parkinga putem SM
 - Pregled dostupnih zona parkiranja u različitim gradovima Srbije
 - Automatsko generisanje SMS poruke za plaćanje parkinga
 - Čuvanje i izbor više registarskih oznaka vozila
-- Podešavanje podrazumevanog grada i vozila
+- Podešavanje podrazumevanog grada i registarskih oznaka
 - Jednostavan izbor grada i zone putem preglednih menija
 - Sekcija za pomoć i podešavanja unutar aplikacije
 
@@ -23,8 +23,8 @@ Pre instalacije, potrebno je podesiti razvojno okruženje prema [zvaničnom Reac
 
 1. Klonirajte repozitorijum:
     ```bash
-    git clone <URL do repozitorijuma>
-    cd <ime-projekta>
+    git clone https://github.com/MiodragSm/ParkingBolid.git
+    cd ParkingBolid
     ```
 
 2. Instalirajte JavaScript zavisnosti:
