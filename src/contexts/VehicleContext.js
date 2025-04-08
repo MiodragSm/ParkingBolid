@@ -7,6 +7,7 @@ export const VehicleContext = createContext();
 export const VehicleProvider = ({ children }) => {
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadVehicles = async () => {
@@ -19,6 +20,8 @@ export const VehicleProvider = ({ children }) => {
         }
       } catch (error) {
         Alert.alert('Error loading vehicles');
+      } finally {
+        setLoading(false);
       }
     };
     loadVehicles();
@@ -52,6 +55,15 @@ export const VehicleProvider = ({ children }) => {
       setSelectedVehicle(updated[0] || null);
     }
   };
+  const clearVehicles = async () => {
+    try {
+      setVehicles([]);
+      setSelectedVehicle(null);
+      await AsyncStorage.setItem('vehicles', JSON.stringify([]));
+    } catch (error) {
+      Alert.alert('Error clearing vehicles');
+    }
+  };
 
   return (
     <VehicleContext.Provider
@@ -62,6 +74,8 @@ export const VehicleProvider = ({ children }) => {
         addVehicle,
         updateVehicle,
         deleteVehicle,
+        clearVehicles,
+        loading,
       }}>
       {children}
     </VehicleContext.Provider>

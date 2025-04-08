@@ -4,22 +4,41 @@ import { useNavigation } from '@react-navigation/native';
 import CityPicker from '../components/CityPicker';
 import { ZoneDataContext } from '../contexts/ZoneDataContext';
 import { VehicleContext } from '../contexts/VehicleContext';
+import VehiclePicker from '../components/VehiclePicker';
+const HeaderRight = ({ navigation }) => (
+  <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+    <Text style={styles.headerIcon}>⚙️</Text>
+  </TouchableOpacity>
+);
+
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const { selectedCity, cityZones, selectedZone, setSelectedZone } = useContext(ZoneDataContext);
-  const { vehicles, selectedVehicle, setSelectedVehicle } = useContext(VehicleContext);
+  const { cityZones, selectedZone, setSelectedZone } = useContext(ZoneDataContext);
+  const { vehicles, selectedVehicle, loading } = useContext(VehicleContext);
+  const hasChecked = React.useRef(false);
+
+  const renderHeaderRight = React.useCallback(
+    () => <HeaderRight navigation={navigation} />,
+    [navigation]
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Text style={{ color: '#fff', fontSize: 18, marginRight: 15 }}>⚙️</Text>
-        </TouchableOpacity>
-      ),
+      headerRight: renderHeaderRight,
       title: 'ParkingBolid',
     });
-  }, [navigation]);
+  }, [navigation, renderHeaderRight]);
+
+  React.useEffect(() => {
+    if (loading || hasChecked.current) {return;}
+    hasChecked.current = true;
+
+    const validVehicles = vehicles ? vehicles.filter(v => v.plate && v.plate.trim() !== '') : [];
+    if (validVehicles.length === 0) {
+      navigation.navigate('Settings');
+    }
+  }, [vehicles, navigation, loading]);
 
   const handlePayParking = () => {
     if (!selectedZone || !selectedVehicle) {
@@ -34,10 +53,10 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <CityPicker />
-      <Text style={styles.text}>
-        {selectedCity ? `Selected city: ${selectedCity.grad}` : 'No city selected'}
-      </Text>
+      <View style={styles.cityRow}>
+        <Text style={styles.cityLabel}>Selected city:</Text>
+        <CityPicker />
+      </View>
 
       <ScrollView contentContainerStyle={styles.zoneList}>
         {cityZones.map((zone) => (
@@ -48,28 +67,42 @@ const HomeScreen = () => {
               selectedZone && selectedZone.id === zone.id && styles.selectedZoneButton,
             ]}
             onPress={() => setSelectedZone(zone)}>
-            <Text style={styles.zoneText}>{zone.skraceniNaziv}</Text>
-            <Text style={styles.zoneText}>{zone.smsBroj}</Text>
+            <View style={styles.zoneRow}>
+              <View style={styles.zoneLeft}>
+                <Text style={[
+                  styles.zoneText,
+                  selectedZone && selectedZone.id === zone.id && styles.selectedZoneText,
+                ]}>
+                  {zone.skraceniNaziv}
+                </Text>
+              </View>
+              <View style={styles.zoneMiddle}>
+                <Text style={[
+                  styles.zoneText,
+                  selectedZone && selectedZone.id === zone.id && styles.selectedZoneText,
+                ]}>
+                  {zone.naziv ? zone.naziv : 'Zone description'}
+                </Text>
+              </View>
+              <View style={styles.zoneRight}>
+                <Text style={[
+                  styles.zoneText,
+                  selectedZone && selectedZone.id === zone.id && styles.selectedZoneText,
+                ]}>
+                  {zone.smsBroj}
+                </Text>
+              </View>
+            </View>
           </TouchableOpacity>
         ))}
       </ScrollView>
 
-      <Text style={styles.text}>Select Vehicle:</Text>
-      <ScrollView contentContainerStyle={styles.vehicleList}>
-        {vehicles.map((vehicle, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              styles.vehicleButton,
-              selectedVehicle === vehicle && styles.selectedVehicleButton,
-            ]}
-            onPress={() => setSelectedVehicle(vehicle)}>
-            <Text style={styles.vehicleText}>
-              {vehicle.nickname ? `${vehicle.nickname} (${vehicle.plate})` : vehicle.plate}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      {vehicles && vehicles.length > 0 && (
+        <View style={styles.cityRow}>
+          <Text style={styles.cityLabel}>License plate:</Text>
+          <VehiclePicker />
+        </View>
+      )}
 
       <TouchableOpacity style={styles.payButton} onPress={handlePayParking}>
         <Text style={styles.payButtonText}>Pay Parking</Text>
@@ -84,7 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 50,
+    paddingTop: 10,
   },
   text: {
     color: '#fff',
@@ -93,24 +126,49 @@ const styles = StyleSheet.create({
   },
   zoneList: {
     padding: 10,
-    alignItems: 'center',
+    width: '100%',
+    alignItems: 'stretch',
   },
   zoneButton: {
     backgroundColor: '#333',
     padding: 15,
     marginVertical: 5,
     borderRadius: 5,
-    width: '90%',
+    width: '100%',
+  },
+  zoneRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  zoneLeft: {
+    width: '25%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  zoneMiddle: {
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  zoneRight: {
+    width: '25%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   selectedZoneButton: {
-    backgroundColor: '#555',
+    backgroundColor: 'green',
     borderWidth: 1,
     borderColor: '#fff',
+  },
+  selectedZoneText: {
+    color: 'black',
+    fontWeight: 'bold',
   },
   zoneText: {
     color: '#fff',
     fontSize: 16,
+    textAlign: 'center',
   },
   vehicleList: {
     padding: 10,
@@ -145,6 +203,39 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  addButton: {
+    backgroundColor: 'red',
+    padding: 15,
+    borderRadius: 5,
+    marginVertical: 20,
+    width: '90%',
+    alignItems: 'center',
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  headerIcon: {
+    color: '#fff',
+    fontSize: 18,
+    marginRight: 15,
+  },
+  cityRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  cityLabel: {
+    color: '#fff',
+    fontSize: 20,
+    marginRight: 10,
+  },
+  nearestCityText: {
+    color: '#fff',
+    fontSize: 16,
+    marginVertical: 5,
   },
 });
 

@@ -2,19 +2,28 @@ import React, { createContext, useState, useEffect } from 'react';
 import { Alert, PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import parkingZonesData from '../data/parkingZones.json';
+import licensePlateCities from '../data/licensePlateCities.json';
 
 export const ZoneDataContext = createContext();
 
+/**
+ * ZoneDataProvider context:
+ * - Loads parking zones and cities from JSON
+ * - Detects nearest city via geolocation on startup
+ * - Sets nearest city as default if user hasn't chosen
+ * - Provides city list, selected city, zones for city, and selected zone
+ */
 export const ZoneDataProvider = ({ children }) => {
-  const [zones, setZones] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedZone, setSelectedZone] = useState(null);
+  const [zones, setZones] = useState([]); // Full parking zones data
+  const [cities, setCities] = useState([]); // List of city names
+  const [selectedCity, setSelectedCity] = useState(null); // User-selected or auto-detected city
+  const [detectingCity, setDetectingCity] = useState(true); // Geolocation in progress flag
+  const [selectedZone, setSelectedZone] = useState(null); // User-selected parking zone
 
   useEffect(() => {
     try {
       setZones(parkingZonesData);
-      setCities(parkingZonesData.map(item => item.grad));
+      setCities(licensePlateCities.map(item => item.grad));
     } catch (error) {
       Alert.alert('Error loading parking zones data');
     }
@@ -53,9 +62,9 @@ export const ZoneDataProvider = ({ children }) => {
             const { latitude, longitude } = pos.coords;
             let nearest = null;
             let minDist = Infinity;
-            for (const city of parkingZonesData) {
-              if (city.lat && city.lng) {
-                const dist = getDistance(latitude, longitude, city.lat, city.lng);
+            for (const city of licensePlateCities) {
+              if (city.latitude && city.longitude) {
+                const dist = getDistance(latitude, longitude, city.latitude, city.longitude);
                 if (dist < minDist) {
                   minDist = dist;
                   nearest = city;
@@ -63,6 +72,7 @@ export const ZoneDataProvider = ({ children }) => {
               }
             }
             if (nearest) {
+              // If selectedCity is empty, null, or invalid, set to detected city
               setSelectedCity({ grad: nearest.grad });
             }
           },
@@ -76,7 +86,7 @@ export const ZoneDataProvider = ({ children }) => {
       }
     };
 
-    detectNearestCity();
+    detectNearestCity().finally(() => setDetectingCity(false));
   }, []);
 
   const cityZones = selectedCity
@@ -90,6 +100,7 @@ export const ZoneDataProvider = ({ children }) => {
         cities,
         selectedCity,
         setSelectedCity,
+        detectingCity,
         cityZones,
         selectedZone,
         setSelectedZone,

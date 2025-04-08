@@ -2,8 +2,6 @@
   {
     "grad": "Beograd",
     "registracijaPrefix": "BG",
-    "lat": 44.7866,
-    "lng": 20.4489,
     "zone": [
       {
         "id": "bg1",
@@ -22,18 +20,34 @@
         "maxVreme": "120 min",
         "cena": "48 RSD",
         "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "bg3",
+        "naziv": "Zona 3 (Zelena)",
+        "skraceniNaziv": "Zona 3",
+        "smsBroj": "9113",
+        "maxVreme": "180 min",
+        "cena": "43 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "bg4",
+        "naziv": "Zona 4 (Plava)",
+        "skraceniNaziv": "Zona 4",
+        "smsBroj": "9114",
+        "maxVreme": "Neograničeno",
+        "cena": "43 RSD/sat",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
       }
     ]
   },
   {
     "grad": "Novi Sad",
     "registracijaPrefix": "NS",
-    "lat": 45.2671,
-    "lng": 19.8335,
     "zone": [
       {
         "id": "ns1",
-        "naziv": "Crvena zona",
+        "naziv": "Zona crvena",
         "skraceniNaziv": "Crvena",
         "smsBroj": "8211",
         "maxVreme": "120 min",
@@ -42,39 +56,523 @@
       },
       {
         "id": "ns2",
-        "naziv": "Plava zona",
+        "naziv": "Zona plava",
         "skraceniNaziv": "Plava",
         "smsBroj": "8212",
         "maxVreme": "Neograničeno",
         "cena": "44 RSD/sat",
         "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
-      }
-    ]
+      },
+      {
+        "id": "ns3",
+        "naziv": "Zona bela",
+        "skraceniNaziv": "Bela",
+        "smsBroj": "8218",
+        "maxVreme": "Neograničeno",
+        "cena": "35 RSD/sat",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "ns4",
+        "naziv": "Zona zlatna",
+        "skraceniNaziv": "Zlatna",
+        "smsBroj": "8219",
+        "maxVreme": "60 min",
+        "cena": "100 RSD",
+        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+      },
+      {
+        "id": "ns_park1",
+        "naziv": "Parking Modena",
+        "skraceniNaziv": "Modena",
+        "smsBroj": "",
+        "maxVreme": "Neograničeno",
+        "cena": "60 RSD/sat",
+        "vremeOgranicenja": "00-24h"
+      },
+      {
+        "id": "ns_park2",
+        "naziv": "Parking Šafarikova",
+        "skraceniNaziv": "Šafarikova",
+        "smsBroj": "",
+        "maxVreme": "Neograničeno",
+        "cena": "60 RSD/sat",
+        "vremeOgranicenja": "00-24h"
+      },
+      {
+        "id": "ns_park3",
+        "naziv": "Parking Banovina",
+        "skraceniNaziv": "Banovina",
+        "smsBroj": "",
+        "maxVreme": "Neograničeno",
+        "cena": "60 RSD/sat",
+        "vremeOgranicenja": "00-24h"
+      },
+    {
+      "id": "ns_nailon",
+      "naziv": "Nailon pijaca",
+      "skraceniNaziv": "Nailon",
+      "smsBroj": "8214",
+      "maxVreme": "Neograničeno",
+      "cena": "44 RSD/sat",
+      "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+    },
+    {
+      "id": "ns_strand",
+      "naziv": "Štrand",
+      "skraceniNaziv": "Štrand",
+      "smsBroj": "8213",
+      "maxVreme": "Neograničeno",
+      "cena": "44 RSD/sat",
+      "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+    }
+  ]
   },
   {
     "grad": "Niš",
     "registracijaPrefix": "NI",
-    "lat": 43.3209,
-    "lng": 21.8958,
     "zone": [
       {
-        "id": "ni1",
-        "naziv": "Zona 1 (Crvena)",
-        "skraceniNaziv": "Zona 1",
+        "id": "nis_zone1",
+        "naziv": "Zona I (Crvena)",
+        "skraceniNaziv": "Zona I",
         "smsBroj": "9181",
-        "maxVreme": "60 min",
-        "cena": "50 RSD",
-        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+        "maxVreme": "120 min",
+        "cena": "60 RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
       },
       {
-        "id": "ni2",
-        "naziv": "Zona 2 (Plava)",
-        "skraceniNaziv": "Zona 2",
+        "id": "nis_zone5",
+        "naziv": "Crvena Višesatna",
+        "skraceniNaziv": "Zona V",
+        "smsBroj": "9184",
+        "maxVreme": "Važi do isteka naplate u danu kada je uplaćeno",
+        "cena": "600/dan RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": ""
+      },      
+      {
+        "id": "nis_zone3",
+        "naziv": "Zona III (Zelena)",
+        "skraceniNaziv": "Zona III",
         "smsBroj": "9182",
-        "maxVreme": "120 min",
-        "cena": "40 RSD",
-        "vremeOgranicenja": "Radni dani 07-21h, Subota 07-14h"
+        "maxVreme": "180 min",
+        "cena": "45 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "nis_zone4",
+        "naziv": "Zona IV (Extra)",
+        "skraceniNaziv": "Zona IV",
+        "smsBroj": "9180",
+        "maxVreme": "90 min",
+        "cena": "90 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
       }
     ]
+  },
+  {
+    "grad": "Kragujevac",
+    "registracijaPrefix": "KG",
+    "zone": [
+      {
+        "id": "kg_zone1",
+        "naziv": "Zona I (Crvena)",
+        "skraceniNaziv": "Zona I",
+        "smsBroj": "8341",
+        "maxVreme": "1 sat",
+        "cena": "50 RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "kg_zone2",
+        "naziv": "Zona II (Žuta)",
+        "skraceniNaziv": "Zona II",
+        "smsBroj": "8342",
+        "maxVreme": "2 sata",
+        "cena": "40 RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "kg_zone3",
+        "naziv": "Zona III (Zelena)",
+        "skraceniNaziv": "Zona III",
+        "smsBroj": "8343",
+        "maxVreme": "Bez ograničenja",
+        "cena": "30 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      }
+    ]
+  },
+  {
+    "grad": "Subotica",
+    "registracijaPrefix": "SU",
+    "zone": [
+      {
+        "id": "su_zone1",
+        "naziv": "Zone I (Red)",
+        "skraceniNaziv": "Zone I",
+        "smsBroj": "9241",
+        "maxVreme": "2 sata",
+        "cena": "65 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "su_zone2",
+        "naziv": "Zone II (Yellow)",
+        "skraceniNaziv": "Zone II",
+        "smsBroj": "9242",
+        "maxVreme": "Bez ograničenja",
+        "cena": "55 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": ""
+      },
+      {
+        "id": "su_zone3",
+        "naziv": "Zone III (Green)",
+        "skraceniNaziv": "Zone III",
+        "smsBroj": "9243",
+        "maxVreme": "Bez ograničenja",
+        "cena": "150 RSD/h",
+        "vremeOgranicenja": "5am-3pm",
+        "napomena": "Nedeljom i praznicima besplatno"
+      }
+      ,
+      {
+        "id": "su_zone4",
+        "naziv": "Zone IV (Blue)",
+        "skraceniNaziv": "Zone IV",
+        "smsBroj": "9244",
+        "maxVreme": "Bez ograničenja",
+        "cena": "35 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      }      
+    ]
+  },
+  {
+    "grad": "Zrenjanin",
+    "registracijaPrefix": "ZR",
+    "zone": [
+      {
+        "id": "zr_zone_a_sat",
+        "naziv": "Zona A (Crvena) - Satna karta",
+        "skraceniNaziv": "Zona A Sat",
+        "smsBroj": "8230",
+        "maxVreme": "2 sata",
+        "cena": "50 RSD/h",
+        "lokacije": [
+          "Trg Slobode",
+          "Gimnazijska",
+          "Kralja Aleksandra I Karađorđevića",
+          "Jevrejska",
+          "Svetosavska",
+          "Cara Dušana (deo)",
+          "Pupinova",
+          "Žitni trg (deo)"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-15h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "zr_zone_a_dnevna",
+        "naziv": "Zona A (Crvena) - Dnevna karta",
+        "skraceniNaziv": "Zona A Dnevna",
+        "smsBroj": "8235",
+        "maxVreme": "Ceo dan",
+        "cena": "200 RSD",
+        "lokacije": [
+          "Trg Slobode",
+          "Gimnazijska",
+          "Kralja Aleksandra I Karađorđevića",
+          "Jevrejska",
+          "Svetosavska",
+          "Cara Dušana (deo)",
+          "Pupinova",
+          "Žitni trg (deo)"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-15h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "zr_zone_b_sat",
+        "naziv": "Zona B (Žuta) - Satna karta",
+        "skraceniNaziv": "Zona B Sat",
+        "smsBroj": "8231",
+        "maxVreme": "Bez ograničenja",
+        "cena": "40 RSD/h",
+        "lokacije": [
+          "Cara Dušana (deo)",
+          "Svetosavska (deo)",
+          "Žitni trg (deo)",
+          "Koče Kolarova",
+          "Dr Zorana Kamenkovića",
+          "Dr Vase Savića",
+          "Pančevačka (deo)"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-15h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "zr_zone_b_dnevna",
+        "naziv": "Zona B (Žuta) - Dnevna karta",
+        "skraceniNaziv": "Zona B Dnevna",
+        "smsBroj": "8236",
+        "maxVreme": "Ceo dan",
+        "cena": "150 RSD",
+        "lokacije": [
+          "Cara Dušana (deo)",
+          "Svetosavska (deo)",
+          "Žitni trg (deo)",
+          "Koče Kolarova",
+          "Dr Zorana Kamenkovića",
+          "Dr Vase Savića",
+          "Pančevačka (deo)"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-15h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "zr_zone_c_sat",
+        "naziv": "Zona C (Zelena) - Satna karta",
+        "skraceniNaziv": "Zona C Sat",
+        "smsBroj": "8232",
+        "maxVreme": "Bez ograničenja",
+        "cena": "30 RSD/h",
+        "lokacije": [
+          "Parking kod autobuske stanice",
+          "Parking kod pijace",
+          "Parking kod sportskog centra",
+          "Obod centra grada"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-15h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      },
+      {
+        "id": "zr_zone_c_dnevna",
+        "naziv": "Zona C (Zelena) - Dnevna karta",
+        "skraceniNaziv": "Zona C Dnevna",
+        "smsBroj": "8237",
+        "maxVreme": "Ceo dan",
+        "cena": "100 RSD",
+        "lokacije": [
+          "Parking kod autobuske stanice",
+          "Parking kod pijace",
+          "Parking kod sportskog centra",
+          "Obod centra grada"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-15h",
+        "napomena": "Nedeljom i praznicima besplatno"
+      }
+    ]
+  },
+  {
+    "grad": "Pančevo",
+    "registracijaPrefix": "PA",
+    "zone": [
+      {
+        "id": "pa_zone1",
+        "naziv": "Zona 1",
+        "skraceniNaziv": "Zona 1 (Crvena)",
+        "smsBroj": "9131",
+        "maxVreme": "2 sata",
+        "cena": "25 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Posle 2 plaćena sata dozvoljeno ponovno parkiranje u istoj zoni posle 30 minuta. Nedeljom i praznicima besplatno."
+      },
+      {
+        "id": "pa_zone2",
+        "naziv": "Zona 2",
+        "skraceniNaziv": "Zona 2 (Žuta)",
+        "smsBroj": "9132",
+        "maxVreme": "4 sata",
+        "cena": "20 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Posle 4 plaćena sata dozvoljeno ponovno parkiranje u istoj zoni posle 30 minuta. Nedeljom i praznicima besplatno."
+      },
+      {
+        "id": "pa_zone3_sat",
+        "naziv": "Zona III (Zelena) - Satna karta",
+        "skraceniNaziv": "Zona III Sat",
+        "smsBroj": "9134",
+        "maxVreme": "Bez ograničenja",
+        "cena": "15 RSD/h",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "U trećoj zoni nema vremenskog ograničenja, što znači da se možete parkirati ceo dan na istom mestu bez pomeranja. Karta za parkiranje u trećoj zoni važi za dan kada je kupljena. Cena karte za celodnevno parkiranje u trećoj zoni je 60 dinara, a možete kupiti kartu za sat vremena koja košta 15 dinara."
+      },
+      {
+        "id": "pa_zone3_dnevna",
+        "naziv": "Zona III (Zelena) - Dnevna karta",
+        "skraceniNaziv": "Zona III Dnevna",
+        "smsBroj": "9133",
+        "maxVreme": "Ceo dan",
+        "cena": "60 RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "U trećoj zoni nema vremenskog ograničenja, što znači da se možete parkirati ceo dan na istom mestu bez pomeranja. Karta za parkiranje u trećoj zoni važi za dan kada je kupljena. Cena karte za celodnevno parkiranje u trećoj zoni je 60 dinara, a možete kupiti kartu za sat vremena koja košta 15 dinara."
+      }
+    ]
+  },
+  {
+    "grad": "Sombor",
+    "registracijaPrefix": "SO",
+    "zone": [
+      {
+        "id": "so_crvena_sat",
+        "naziv": "Crvena zona - Satna karta",
+        "skraceniNaziv": "Crvena Sat",
+        "smsBroj": "9251",
+        "maxVreme": "Bez ograničenja",
+        "cena": "49.50 RSD/h",
+        "mesecnaKarta": "3000 RSD",
+        "lokacije": [
+          "Mite Popovića",
+          "Njegoševa",
+          "Vasilija Kovačića",
+          "Mirna (2 mesta rezervisana za PU 'Vera Gucoња')",
+          "Avrama Mrazovića",
+          "Čitaonička",
+          "Venac Vojvode Radomira Putnika",
+          "Venac Vojvode Petra Bojovića",
+          "Sonje Marinković (od Venac Vojvode Stepe Stepanovića do kolskog ulaza u 'Stari fijaker')",
+          "Vojvođanska (ispred zgrade 'Lepotica')"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-20h, Sub 07-13h",
+        "napomena": "Nedeljom i praznicima besplatno."
+      },
+      {
+        "id": "so_crvena_dnevna",
+        "naziv": "Crvena zona - Dnevna karta",
+        "skraceniNaziv": "Crvena Dnevna",
+        "smsBroj": "9154",
+        "maxVreme": "Ceo dan",
+        "cena": "600 RSD",
+        "mesecnaKarta": "3000 RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno."
+      },
+      {
+        "id": "so_plava_sat",
+        "naziv": "Žuta zona - Satna karta",
+        "skraceniNaziv": "Žuta Sat",
+        "smsBroj": "9252",
+        "maxVreme": "Bez ograničenja",
+        "cena": "34 RSD/h",
+        "mesecnaKarta": "2500 RSD",
+        "lokacije": [
+          "Veljka Petrovića",
+          "Zlatne Grede",
+          "Nikole Vukićevića",
+          "Batinska",
+          "Radišićeva"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-20h, Sub 07-13h",
+        "napomena": "Nedeljom i praznicima besplatno."
+      },
+      {
+        "id": "so_plava_dnevna",
+        "naziv": "Plava zona - Dnevna karta",
+        "skraceniNaziv": "Plava Dnevna",
+        "smsBroj": "9155",
+        "maxVreme": "Ceo dan",
+        "cena": "400 RSD",
+        "mesecnaKarta": "2500 RSD",
+        "vremeOgranicenja": "Pon-Pet 07-21h, Sub 07-14h",
+        "napomena": "Nedeljom i praznicima besplatno."
+      },
+      {
+        "id": "so_bela_sat",
+        "naziv": "Zelena zona - Dnevna karta",
+        "skraceniNaziv": "Zelena Dnevna",
+        "smsBroj": "9253",
+        "maxVreme": "Bez ograničenja",
+        "cena": "69.50 RSD",
+        "lokacije": [
+          "Bela Goluba",
+          "Ernesta Kiša",
+          "Rade Končara",
+          "Vojvođanska ulica (ispred ulaza u Opštu bolnicu i ispred 'ŽAK-a')",
+          "Rade Drakulića (osim 3 parking mesta ispred kućnog broja 2)",
+          "Arsenija Čarnojevića",
+          "Blagojevićeva",
+          "Kratka",
+          "Kosovska (nema uređenih parking mesta)",
+          "Višnjićeva",
+          "Valjevska",
+          "Kneza Miloša (4 mesta za Hitnu pomoć i 9 za PU Sombor)",
+          "Radišićeva",
+          "Podgorička",
+          "Sonje Marinković (od kolskog ulaza u 'Stari fijaker' do Podgoričke ulice)"
+        ],
+        "vremeOgranicenja": "Pon-Pet 07-15h, Sub 07-13h",
+        "napomena": "Nedeljom i praznicima besplatno."
+      }
+    ]
+  },
+  {
+    "grad": "Sremska Mitrovica",
+    "registracijaPrefix": "SM",
+    "zone": []
+  },
+  {
+    "grad": "Požarevac",
+    "registracijaPrefix": "PO",
+    "zone": []
+  },
+  {
+    "grad": "Leskovac",
+    "registracijaPrefix": "LE",
+    "zone": []
+  },
+  {
+    "grad": "Užice",
+    "registracijaPrefix": "UE",
+    "zone": []
+  },
+  {
+    "grad": "Vranje",
+    "registracijaPrefix": "VR",
+    "zone": []
+  },
+  {
+    "grad": "Valjevo",
+    "registracijaPrefix": "VA",
+    "zone": []
+  },
+  {
+    "grad": "Šabac",
+    "registracijaPrefix": "ŠA",
+    "zone": []
+  },
+  {
+    "grad": "Čačak",
+    "registracijaPrefix": "ČA",
+    "zone": []
+  },
+  {
+    "grad": "Kraljevo",
+    "registracijaPrefix": "KV",
+    "zone": []
+  },
+  {
+    "grad": "Pirot",
+    "registracijaPrefix": "PI",
+    "zone": []
+  },
+  {
+    "grad": "Prokuplje",
+    "registracijaPrefix": "PK",
+    "zone": []
+  },
+  {
+    "grad": "Smederevo",
+    "registracijaPrefix": "SD",
+    "zone": []
   }
 ]

@@ -1,34 +1,31 @@
-
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, ScrollView, StyleSheet } from 'react-native';
-import { ZoneDataContext } from '../contexts/ZoneDataContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 
-const CityPicker = () => {
-  const { cities, selectedCity, setSelectedCity, detectingCity, detectedCity } = useContext(ZoneDataContext);
+const VehiclePicker = () => {
+  const { vehicles, selectedVehicle, setSelectedVehicle } = useContext(VehicleContext);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    if (detectedCity && !selectedCity) {
-      setSelectedCity(detectedCity);
-    }
-  }, [detectedCity, selectedCity, setSelectedCity]);
-
-  const handleSelect = (cityName) => {
-    setSelectedCity({ grad: cityName });
+  const handleSelect = (vehicle) => {
+    setSelectedVehicle(vehicle);
     setModalVisible(false);
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={styles.dropdownButton}
+        style={[styles.dropdownButton, { backgroundColor: 'green' }]}
         onPress={() => setModalVisible(true)}>
         <Text style={styles.dropdownButtonText}>
-          {detectingCity
-            ? 'Detecting city...'
-            : selectedCity && selectedCity.grad && selectedCity.grad.trim() !== ''
-            ? selectedCity.grad
-            : 'Select City'}
+          {selectedVehicle
+            ? (selectedVehicle.nickname
+                ? `${selectedVehicle.plate} (${selectedVehicle.nickname})`
+                : selectedVehicle.plate)
+            : (vehicles.length > 0
+                ? (vehicles[vehicles.length - 1].nickname
+                    ? `${vehicles[vehicles.length - 1].plate} (${vehicles[vehicles.length - 1].nickname})`
+                    : vehicles[vehicles.length - 1].plate)
+                : 'Add licence plate')}
         </Text>
       </TouchableOpacity>
 
@@ -43,12 +40,16 @@ const CityPicker = () => {
           onPressOut={() => setModalVisible(false)}>
           <View style={styles.modalContent}>
             <ScrollView>
-              {cities.map((cityName) => (
+              {vehicles.map((vehicle, index) => (
                 <TouchableOpacity
-                  key={cityName}
+                  key={index}
                   style={styles.modalItem}
-                  onPress={() => handleSelect(cityName)}>
-                  <Text style={styles.modalItemText}>{cityName}</Text>
+                  onPress={() => handleSelect(vehicle)}>
+                  <Text style={styles.modalItemText}>
+                    {vehicle.nickname
+                      ? `${vehicle.nickname} (${vehicle.plate})`
+                      : vehicle.plate}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </ScrollView>
@@ -101,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CityPicker;
+export default VehiclePicker;
