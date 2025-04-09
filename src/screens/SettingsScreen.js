@@ -46,7 +46,7 @@ const SettingsScreen = () => {
     }
     if (trimmedPlate.length < 7 || trimmedPlate.length > 8) {
       Alert.alert(
-        'Neispravna tablica',
+        'Neispravno ime tablice',
         'Tablica mora imati najmanje 7 i najviše 8 karaktera, koristeći samo velika slova, brojeve i srpska slova (Č, Ć, Š, Ž, Đ).'
       );
       return;

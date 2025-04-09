@@ -1,5 +1,7 @@
 import React, { useContext, useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert } from 'react-native';
+import settingIcon from '../assets/settings-icon-gear-3d-render.png';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert, Image } from 'react-native';
+import { APP_VERSION } from '../version';
 import { useNavigation } from '@react-navigation/native';
 import CityPicker from '../components/CityPicker';
 import { ZoneDataContext } from '../contexts/ZoneDataContext';
@@ -7,7 +9,7 @@ import { VehicleContext } from '../contexts/VehicleContext';
 import VehiclePicker from '../components/VehiclePicker';
 const HeaderRight = ({ navigation }) => (
   <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-    <Text style={styles.headerIcon}>⚙️</Text>
+    <Image source={settingIcon} style={styles.headerIcon} />
   </TouchableOpacity>
 );
 
@@ -26,7 +28,7 @@ const HomeScreen = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: renderHeaderRight,
-      title: 'ParkingBolid',
+      title: `ParkingBolid V${APP_VERSION}`,
     });
   }, [navigation, renderHeaderRight]);
 
@@ -53,6 +55,12 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.ocrButton}
+        onPress={() => navigation.navigate('OcrScan')}
+      >
+        <Text style={styles.ocrButtonText}>Skeniraj tablicu/znak</Text>
+      </TouchableOpacity>
       <View style={styles.cityRow}>
         <Text style={styles.cityLabel}>Izabrani grad:</Text>
         <CityPicker />
@@ -218,8 +226,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerIcon: {
-    color: '#fff',
-    fontSize: 18,
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
     marginRight: 15,
   },
   cityRow: {
@@ -236,6 +245,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     marginVertical: 5,
+  },
+  ocrButton: {
+    backgroundColor: '#007AFF',
+    padding: 12,
+    borderRadius: 5,
+    marginVertical: 10,
+    width: '90%',
+    alignItems: 'center',
+  },
+  ocrButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
 });
 

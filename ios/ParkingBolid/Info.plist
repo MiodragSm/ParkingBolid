@@ -48,5 +48,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>App requires camera access to scan license plates and parking signs.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App requires photo library access to save and edit images.</string>
 </dict>
 </plist>
