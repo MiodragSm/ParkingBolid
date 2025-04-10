@@ -5,7 +5,7 @@ import torchIcon from '../assets/torch.png';
 import captureIcon from '../assets/Image-Capture-icon.png';
 import { Camera, useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
 
-const CameraCapture = ({ navigation }) => {
+const CameraCapture = ({ navigation, onCapture }) => {
   const [previewSize, setPreviewSize] = React.useState(null);
   const [focusPoint, setFocusPoint] = React.useState(undefined);
   const [isTorchOn, setIsTorchOn] = React.useState(false);
@@ -38,9 +38,23 @@ const CameraCapture = ({ navigation }) => {
   }, [hasPermission, requestPermission]);
 
   const takePhoto = async () => {
-    if (cameraRef.current) {
-      const photo = await cameraRef.current.takePhoto();
-      navigation.navigate('OcrScan', { imageUri: photo.path });
+    console.log('Capture button pressed');
+    try {
+      if (cameraRef.current) {
+        console.log('Camera ref is valid, about to take photo...');
+        const photo = await cameraRef.current.takePhoto();
+        console.log('Photo captured:', photo?.path);
+        if (onCapture && typeof onCapture === 'function') {
+          console.log('Calling onCapture callback with imageUri...');
+          onCapture(photo.path);
+        } else {
+          console.warn('No onCapture callback provided');
+        }
+      } else {
+        console.warn('Camera ref is null, cannot take photo');
+      }
+    } catch (error) {
+      console.error('Error during takePhoto:', error);
     }
   };
 
@@ -89,9 +103,11 @@ const CameraCapture = ({ navigation }) => {
             onPress={(event) => {
               const { locationX, locationY } = event.nativeEvent;
               if (!previewSize) {return;}
+              // Normalize tap coordinates (0-1) relative to preview size for camera focus point
               const x = locationX / previewSize.width;
               const y = locationY / previewSize.height;
               setFocusPoint({ x, y });
+              // Show a temporary focus indicator overlay at tap location (in pixels)
               setFocusIndicator({ x: locationX, y: locationY });
               setTimeout(() => setFocusIndicator(null), 1000);
             }}
@@ -113,6 +129,8 @@ const CameraCapture = ({ navigation }) => {
             pointerEvents="none"
           />
         )}
+        {/* The yellow circle overlay provides user feedback for tap-to-focus,
+            helping guide the user to align license plates or signs within the frame. */}
       </View>
       <TouchableOpacity style={styles.captureButton} onPress={takePhoto}>
         <Image source={captureIcon} style={styles.captureIcon} />

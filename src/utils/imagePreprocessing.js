@@ -1,6 +1,6 @@
 /**
  * Image preprocessing utilities for OCR optimization.
- * 
+ *
  * This module provides functions to enhance captured images before object detection and OCR.
  * Steps include grayscale conversion, contrast adjustment, binarization, and noise reduction.
  */
@@ -13,8 +13,8 @@ import PhotoManipulator from 'react-native-photo-manipulator';
  * @returns {Promise<string>} - URI of processed image.
  */
 export async function toGrayscale(uri) {
-  // react-native-photo-manipulator supports grayscale filter
-  return await PhotoManipulator.applyFilter(uri, 'grayscale');
+  console.warn('toGrayscale is a placeholder. Implement with OpenCV or native code.');
+  return uri;
 }
 
 /**
@@ -25,7 +25,8 @@ export async function toGrayscale(uri) {
  */
 export async function increaseContrast(uri, amount = 1.2) {
   // Placeholder: react-native-photo-manipulator does not support contrast natively
-  // You may implement this via native module or OpenCV integration
+  // Increasing contrast helps OCR by making characters stand out more clearly from the background.
+  // You may implement this via native module or OpenCV integration for better OCR accuracy.
   console.warn('increaseContrast is a placeholder. Implement with OpenCV or native code.');
   return uri;
 }
@@ -37,6 +38,7 @@ export async function increaseContrast(uri, amount = 1.2) {
  */
 export async function adaptiveThreshold(uri) {
   // Placeholder: requires OpenCV integration for adaptive thresholding
+  // Adaptive thresholding converts the image to pure black and white, improving OCR robustness under varying lighting.
   console.warn('adaptiveThreshold is a placeholder. Implement with OpenCV or native code.');
   return uri;
 }
@@ -48,6 +50,7 @@ export async function adaptiveThreshold(uri) {
  */
 export async function reduceNoise(uri) {
   // Placeholder: requires OpenCV integration for denoising
+  // Noise reduction cleans up small artifacts that can confuse OCR engines.
   console.warn('reduceNoise is a placeholder. Implement with OpenCV or native code.');
   return uri;
 }
@@ -61,13 +64,18 @@ export async function preprocessImage(uri, options = { advanced: true }) {
   let processedUri = uri;
 
   try {
+    // Step 1: Convert to grayscale to simplify image data
     processedUri = await toGrayscale(processedUri);
+    // Step 2: Increase contrast to make text stand out
     processedUri = await increaseContrast(processedUri);
+    // Step 3: Apply adaptive thresholding to binarize image for OCR
     processedUri = await adaptiveThreshold(processedUri);
+    // Step 4: Reduce noise to remove small artifacts
     processedUri = await reduceNoise(processedUri);
   } catch (error) {
     console.warn('Image preprocessing failed:', error);
-    return uri; // fallback to original
+    // If any step fails, fallback to original image to avoid blocking OCR
+    return uri;
   }
   return processedUri;
 }

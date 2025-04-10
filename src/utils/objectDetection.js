@@ -18,9 +18,12 @@ export async function detectObjects(uri) {
     const results = await MlkitObjectDetectionModule.detectObjects(uri);
     // Expected format: [{ x, y, width, height, label, confidence }]
     // Sort by confidence descending
+    // Sort detections by confidence descending to prioritize the most likely license plates or signs
     return results.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
   } catch (error) {
     console.warn('ML Kit object detection failed:', error);
     return [];
   }
+  // The returned bounding boxes can be used to crop the image for targeted OCR,
+  // improving recognition accuracy by focusing only on relevant regions.
 }

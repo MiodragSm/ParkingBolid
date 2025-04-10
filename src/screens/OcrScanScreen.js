@@ -4,17 +4,15 @@ import { Picker } from '@react-native-picker/picker';
 import licensePlateCities from '../data/licensePlateCities.json';
 import { extractLicensePlate, extractParkingZone } from '../utils/ocrUtils';
 import PhotoManipulator from 'react-native-photo-manipulator';
-import MlkitOcr from 'react-native-mlkit-ocr';
+import TextRecognition from 'react-native-text-recognition';
 import CameraCapture from '../components/CameraCapture';
-import { detectObjects } from '../utils/objectDetection';
-import { preprocessImage } from '../utils/imagePreprocessing';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from 'react';
 import { findCityByPlate } from '../utils/cityUtils';
 import { isValidZoneForCity, getZonesForCity } from '../utils/zoneUtils';
 
 
-const OcrScanScreen = ({ navigation }) => {
+const OcrScanScreen = ({ navigation, route }) => {
   const [imageUri, setImageUri] = useState(null);
   const [ocrText, setOcrText] = useState('');
   const [licensePlate, setLicensePlate] = useState('');
@@ -61,81 +59,52 @@ const OcrScanScreen = ({ navigation }) => {
     };
     savePrefs();
   }, [detectedCity, parkingZone]);
+  // If navigated with imageUri param, start OCR immediately
+  useEffect(() => {
+    if (route?.params?.imageUri && !imageUri) {
+      handleImageCaptured(route.params.imageUri);
+    }
+  }, [route, imageUri]);
+
 
   const handleImageCaptured = async (uri) => {
-    setImageUri(uri);
+    console.log('handleImageCaptured called with URI:', uri);
     try {
-      // Preprocess the image before detection and OCR
-      const processedUri = await preprocessImage(uri);
-      setImageUri(processedUri);
+      setImageUri(uri);
+      console.log('Starting simplified OCR pipeline...');
 
-      // Detect license plates and signs
-      const detectedBoxes = await detectObjects(processedUri);
-      setDetections(detectedBoxes);
+      const lines = await TextRecognition.recognize(uri);
+      const recognizedText = lines.join('\n');
+      console.log('OCR result:', recognizedText);
 
-      let licensePlateText = '';
-      let parkingZoneText = '';
-
-      if (detectedBoxes.length > 0) {
-        for (const det of detectedBoxes) {
-          try {
-            const croppedUri = await PhotoManipulator.crop(processedUri, {
-              x: det.x,
-              y: det.y,
-              width: det.width,
-              height: det.height,
-            });
-
-            const result = await MlkitOcr.recognize(croppedUri);
-
-            if (det.label && det.label.toLowerCase().includes('plate')) {
-              licensePlateText += ' ' + result.text;
-            } else if (det.label && (det.label.toLowerCase().includes('sign') || det.label.toLowerCase().includes('zone'))) {
-              parkingZoneText += ' ' + result.text;
-            } else {
-              // Unknown label, include in both
-              licensePlateText += ' ' + result.text;
-              parkingZoneText += ' ' + result.text;
-            }
-          } catch (cropOrOcrError) {
-            console.warn('Error processing detection region:', cropOrOcrError);
-          }
-        }
-      } else {
-        // Fallback: run OCR on the full preprocessed image
-        const result = await MlkitOcr.recognize(processedUri);
-        licensePlateText = result.text;
-        parkingZoneText = result.text;
-      }
-
-      console.log('OCR license plate text:', licensePlateText);
-      console.log('OCR parking zone text:', parkingZoneText);
-
-      if ((!licensePlateText || licensePlateText.trim() === '') && (!parkingZoneText || parkingZoneText.trim() === '')) {
+      if (!recognizedText || recognizedText.trim() === '') {
         throw new Error('Empty OCR result');
       }
 
-      const newPlateCandidates = extractLicensePlate(licensePlateText);
-      const newZoneCandidates = extractParkingZone(parkingZoneText);
+      setOcrText(recognizedText);
 
-      setOcrText(`${licensePlateText}\n${parkingZoneText}`);
+      const plateCandidates = extractLicensePlate(recognizedText);
+      const zoneCandidates = extractParkingZone(recognizedText);
 
-      setLicensePlate(newPlateCandidates.length > 0 ? newPlateCandidates[0] : '');
-      setParkingZone(newZoneCandidates.length > 0 ? newZoneCandidates[0] : '');
+      console.log('Extracted plate candidates:', plateCandidates);
+      console.log('Extracted zone candidates:', zoneCandidates);
 
-      setPlateCandidates(newPlateCandidates);
-      setZoneCandidates(newZoneCandidates);
+      setLicensePlate(plateCandidates.length > 0 ? plateCandidates[0] : '');
+      setParkingZone(zoneCandidates.length > 0 ? zoneCandidates[0] : '');
 
-      // Find city by license plate prefix
-      const firstPlate = newPlateCandidates.length > 0 ? newPlateCandidates[0] : '';
-      const firstZone = newZoneCandidates.length > 0 ? newZoneCandidates[0] : '';
+      setPlateCandidates(plateCandidates);
+      setZoneCandidates(zoneCandidates);
+
+      const firstPlate = plateCandidates.length > 0 ? plateCandidates[0] : '';
+      const firstZone = zoneCandidates.length > 0 ? zoneCandidates[0] : '';
 
       const city = findCityByPlate(firstPlate);
+      console.log('Detected city:', city);
       setDetectedCity(city);
 
-      // Validate parking zone for detected city
       if (city && firstZone) {
         const valid = isValidZoneForCity(city.grad, firstZone);
+        console.log('Zone valid for city:', valid);
         setZoneValid(valid);
       } else {
         setZoneValid(null);
@@ -146,7 +115,6 @@ const OcrScanScreen = ({ navigation }) => {
       console.warn('OCR failed or empty, redirecting to edit:', error);
       alert('Neuspešno prepoznavanje teksta. Pokušajte da uredite sliku.');
       setShowResult(false);
-      // The UI will show the image with edit and retry buttons
     }
   };
 
@@ -171,7 +139,8 @@ const OcrScanScreen = ({ navigation }) => {
     }
 
     try {
-      const result = await MlkitOcr.recognize(imageUri);
+      const lines = await TextRecognition.recognize(imageUri);
+      const result = { text: lines.join('\n') };
       const recognizedText = result.text;
       setOcrText(recognizedText);
 
