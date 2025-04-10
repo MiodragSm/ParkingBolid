@@ -21,10 +21,29 @@ export const ZoneDataProvider = ({ children }) => {
   const [selectedZone, setSelectedZone] = useState(null); // User-selected parking zone
 
   useEffect(() => {
+    console.log('Loaded parkingZonesData:', parkingZonesData);
     try {
-      setZones(parkingZonesData);
+      if (
+        parkingZonesData &&
+        Array.isArray(parkingZonesData)
+      ) {
+        const zonesMap = {};
+        parkingZonesData.forEach(cityObj => {
+          zonesMap[cityObj.grad] = cityObj.zone;
+        });
+        setZones(zonesMap);
+      } else if (
+        parkingZonesData &&
+        typeof parkingZonesData === 'object'
+      ) {
+        setZones(parkingZonesData);
+      } else {
+        console.log('Unexpected parkingZonesData format:', parkingZonesData);
+        setZones({});
+      }
       setCities(licensePlateCities.map(item => item.grad));
     } catch (error) {
+      console.log('Error enriching zones:', error);
       Alert.alert('Greška pri učitavanju podataka o zonama parkiranja');
     }
     // Helper: calculate distance between two lat/lng points (Haversine formula)
@@ -90,7 +109,7 @@ export const ZoneDataProvider = ({ children }) => {
   }, []);
 
   const cityZones = selectedCity
-    ? zones.find((z) => z.grad === selectedCity.grad)?.zone || []
+    ? zones[selectedCity.grad] || []
     : [];
 
   return (

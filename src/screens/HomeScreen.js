@@ -67,9 +67,13 @@ const HomeScreen = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.zoneList}>
-        {cityZones.map((zone) => (
+        {cityZones.map((zone, index) => (
           <TouchableOpacity
-            key={zone.id}
+            key={
+              (typeof zone.id === 'string' || typeof zone.id === 'number') ? zone.id :
+              (typeof zone.smsBroj === 'string' || typeof zone.smsBroj === 'number') ? zone.smsBroj :
+              String(index)
+            }
             style={[
               styles.zoneButton,
               selectedZone && selectedZone.id === zone.id && styles.selectedZoneButton,
@@ -81,7 +85,7 @@ const HomeScreen = () => {
                   styles.zoneText,
                   selectedZone && selectedZone.id === zone.id && styles.selectedZoneText,
                 ]}>
-                  {zone.skraceniNaziv}
+                  {typeof zone.skraceniNaziv === 'string' ? zone.skraceniNaziv : ''}
                 </Text>
               </View>
               <View style={styles.zoneMiddle}>
@@ -89,7 +93,7 @@ const HomeScreen = () => {
                   styles.zoneText,
                   selectedZone && selectedZone.id === zone.id && styles.selectedZoneText,
                 ]}>
-                  {zone.naziv ? zone.naziv : 'Zone description'}
+                  {typeof zone.naziv === 'string' ? zone.naziv : 'Zone description'}
                 </Text>
               </View>
               <View style={styles.zoneRight}>
@@ -97,7 +101,7 @@ const HomeScreen = () => {
                   styles.zoneText,
                   selectedZone && selectedZone.id === zone.id && styles.selectedZoneText,
                 ]}>
-                  {zone.smsBroj}
+                  {typeof zone.smsBroj === 'string' ? zone.smsBroj : ''}
                 </Text>
               </View>
             </View>

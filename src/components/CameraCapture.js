@@ -5,7 +5,7 @@ import torchIcon from '../assets/torch.png';
 import captureIcon from '../assets/Image-Capture-icon.png';
 import { Camera, useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
 
-const CameraCapture = ({ onCapture }) => {
+const CameraCapture = ({ navigation }) => {
   const [previewSize, setPreviewSize] = React.useState(null);
   const [focusPoint, setFocusPoint] = React.useState(undefined);
   const [isTorchOn, setIsTorchOn] = React.useState(false);
@@ -40,7 +40,7 @@ const CameraCapture = ({ onCapture }) => {
   const takePhoto = async () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePhoto();
-      onCapture(photo.path);
+      navigation.navigate('OcrScan', { imageUri: photo.path });
     }
   };
 
