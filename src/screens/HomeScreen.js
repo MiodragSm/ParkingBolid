@@ -1,7 +1,6 @@
 import React, { useContext, useLayoutEffect, useState } from 'react';
 import settingIcon from '../assets/settings-icon-gear-3d-render.png';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert, Image, Modal } from 'react-native';
-import HelpScreen from './HelpScreen';
 import { APP_VERSION } from '../version';
 import { useNavigation } from '@react-navigation/native';
 import CityPicker from '../components/CityPicker';
@@ -25,14 +24,13 @@ const HomeScreen = () => {
   const { cityZones, selectedZone, setSelectedZone } = useContext(ZoneDataContext);
   const { vehicles, selectedVehicle, loading } = useContext(VehicleContext);
   const hasChecked = React.useRef(false);
-  const [helpVisible, setHelpVisible] = useState(false);
-
-  const handleHelpPress = () => setHelpVisible(true);
-  const handleHelpClose = () => setHelpVisible(false);
+  const handleHelpPress = React.useCallback(() => {
+    navigation.navigate('Help');
+  }, [navigation]);
 
   const renderHeaderRight = React.useCallback(
     () => <HeaderRight navigation={navigation} onHelpPress={handleHelpPress} />,
-    [navigation]
+    [navigation, handleHelpPress]
   );
 
   useLayoutEffect(() => {
@@ -65,12 +63,6 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* <TouchableOpacity
-        style={styles.ocrButton}
-        onPress={() => navigation.navigate('OcrScan')}
-      >
-        <Text style={styles.ocrButtonText}>Skeniraj tablicu/znak</Text>
-      </TouchableOpacity> */}
       <View style={styles.cityRow}>
         <Text style={styles.cityLabel}>Izabrani grad:</Text>
         <CityPicker />
@@ -130,17 +122,6 @@ const HomeScreen = () => {
         <Text style={styles.payButtonText}>Plati Parking</Text>
       </TouchableOpacity>
 
-      <Modal
-        visible={helpVisible}
-        animationType="slide"
-        onRequestClose={handleHelpClose}
-        transparent={false}
-      >
-        <View style={{ flex: 1 }}>
-          <HelpScreen />
-          <HelpScreen onClose={handleHelpClose} />
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -271,18 +252,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     marginVertical: 5,
-  },
-  ocrButton: {
-    backgroundColor: '#007AFF',
-    padding: 12,
-    borderRadius: 5,
-    marginVertical: 10,
-    width: '90%',
-    alignItems: 'center',
-  },
-  ocrButtonText: {
-    color: '#fff',
-    fontSize: 16,
   },
    helpIcon: {
        fontSize: 36,

@@ -24,6 +24,4 @@ export async function detectObjects(uri) {
     console.warn('ML Kit object detection failed:', error);
     return [];
   }
-  // The returned bounding boxes can be used to crop the image for targeted OCR,
-  // improving recognition accuracy by focusing only on relevant regions.
 }

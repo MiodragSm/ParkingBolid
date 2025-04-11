@@ -5,8 +5,6 @@ buildscript {
         compileSdkVersion = 35
         targetSdkVersion = 35
 
-        TextRecognition_compileSdkVersion = 35
-        TextRecognition_buildToolsVersion = "35.0.0"
 
         ndkVersion = "27.1.12297006"
         kotlinVersion = "2.0.21"

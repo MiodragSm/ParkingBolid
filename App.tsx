@@ -7,7 +7,6 @@ import { StatusBar } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import HelpScreen from './src/screens/HelpScreen';
-import OcrScanScreen from './src/screens/OcrScanScreen';
 import { ZoneDataProvider } from './src/contexts/ZoneDataContext';
 import { VehicleProvider } from './src/contexts/VehicleContext';
 
@@ -34,11 +33,6 @@ const App = () => {
               options={{ title: 'Podešavanja' }}
             />
             <Stack.Screen name="Help" component={HelpScreen} />
-            <Stack.Screen
-              name="OcrScan"
-              component={OcrScanScreen}
-              options={{ title: 'Skeniranje' }}
-            />
           </Stack.Navigator>
         </NavigationContainer>
       </ZoneDataProvider>

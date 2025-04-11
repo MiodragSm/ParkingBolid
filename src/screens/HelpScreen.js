@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 
-const HelpScreen = ({ onClose }) => {
+const HelpScreen = ({ navigation }) => {
   return (
     <View style={styles.wrapper}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -18,11 +18,11 @@ const HelpScreen = ({ onClose }) => {
           Uživajte u korištenju ParkingBolid-a :)!
         </Text>
       </ScrollView>
-      {onClose && (
+      {navigation && typeof navigation.canGoBack === 'function' && navigation.canGoBack() && (
         <View style={styles.closeButtonContainer}>
           <TouchableOpacity
             style={styles.closeButton}
-            onPress={onClose}
+            onPress={() => navigation.goBack()}
           >
             <Text style={styles.closeButtonText}>✖</Text>
           </TouchableOpacity>
