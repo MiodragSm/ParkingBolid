@@ -1,16 +1,22 @@
-import React, { useContext, useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import settingIcon from '../assets/settings-icon-gear-3d-render.png';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert, Image, Modal } from 'react-native';
+import HelpScreen from './HelpScreen';
 import { APP_VERSION } from '../version';
 import { useNavigation } from '@react-navigation/native';
 import CityPicker from '../components/CityPicker';
 import { ZoneDataContext } from '../contexts/ZoneDataContext';
 import { VehicleContext } from '../contexts/VehicleContext';
 import VehiclePicker from '../components/VehiclePicker';
-const HeaderRight = ({ navigation }) => (
-  <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-    <Image source={settingIcon} style={styles.headerIcon} />
-  </TouchableOpacity>
+const HeaderRight = ({ navigation, onHelpPress }) => (
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+      <Image source={settingIcon} style={styles.headerIcon} />
+    </TouchableOpacity>
+    <TouchableOpacity onPress={onHelpPress}>
+      <Text style={styles.helpIcon}>❓</Text>
+    </TouchableOpacity>
+  </View>
 );
 
 
@@ -19,9 +25,13 @@ const HomeScreen = () => {
   const { cityZones, selectedZone, setSelectedZone } = useContext(ZoneDataContext);
   const { vehicles, selectedVehicle, loading } = useContext(VehicleContext);
   const hasChecked = React.useRef(false);
+  const [helpVisible, setHelpVisible] = useState(false);
+
+  const handleHelpPress = () => setHelpVisible(true);
+  const handleHelpClose = () => setHelpVisible(false);
 
   const renderHeaderRight = React.useCallback(
-    () => <HeaderRight navigation={navigation} />,
+    () => <HeaderRight navigation={navigation} onHelpPress={handleHelpPress} />,
     [navigation]
   );
 
@@ -55,12 +65,12 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.ocrButton}
         onPress={() => navigation.navigate('OcrScan')}
       >
         <Text style={styles.ocrButtonText}>Skeniraj tablicu/znak</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={styles.cityRow}>
         <Text style={styles.cityLabel}>Izabrani grad:</Text>
         <CityPicker />
@@ -119,6 +129,18 @@ const HomeScreen = () => {
       <TouchableOpacity style={styles.payButton} onPress={handlePayParking}>
         <Text style={styles.payButtonText}>Plati Parking</Text>
       </TouchableOpacity>
+
+      <Modal
+        visible={helpVisible}
+        animationType="slide"
+        onRequestClose={handleHelpClose}
+        transparent={false}
+      >
+        <View style={{ flex: 1 }}>
+          <HelpScreen />
+          <HelpScreen onClose={handleHelpClose} />
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -262,6 +284,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+   helpIcon: {
+       fontSize: 36,
+       color: '#fff',
+       marginRight: 15,
+   },
 });
 
 export default HomeScreen;

@@ -64,10 +64,10 @@ const OcrScanScreen = ({ navigation, route }) => {
     if (route?.params?.imageUri && !imageUri) {
       handleImageCaptured(route.params.imageUri);
     }
-  }, [route, imageUri]);
+  }, [route, imageUri, handleImageCaptured]);
 
 
-  const handleImageCaptured = async (uri) => {
+  const handleImageCaptured = React.useCallback(async (uri) => {
     console.log('handleImageCaptured called with URI:', uri);
     try {
       setImageUri(uri);
@@ -83,20 +83,19 @@ const OcrScanScreen = ({ navigation, route }) => {
 
       setOcrText(recognizedText);
 
-      const plateCandidates = extractLicensePlate(recognizedText);
-      const zoneCandidates = extractParkingZone(recognizedText);
+      const plates = extractLicensePlate(recognizedText);
+      const zones = extractParkingZone(recognizedText);
+      setPlateCandidates(plates);
+      setZoneCandidates(zones);
 
-      console.log('Extracted plate candidates:', plateCandidates);
-      console.log('Extracted zone candidates:', zoneCandidates);
+      console.log('Extracted plate candidates:', plates);
+      console.log('Extracted zone candidates:', zones);
 
-      setLicensePlate(plateCandidates.length > 0 ? plateCandidates[0] : '');
-      setParkingZone(zoneCandidates.length > 0 ? zoneCandidates[0] : '');
+      const firstPlate = plates.length > 0 ? plates[0] : '';
+      const firstZone = zones.length > 0 ? zones[0] : '';
 
-      setPlateCandidates(plateCandidates);
-      setZoneCandidates(zoneCandidates);
-
-      const firstPlate = plateCandidates.length > 0 ? plateCandidates[0] : '';
-      const firstZone = zoneCandidates.length > 0 ? zoneCandidates[0] : '';
+      setLicensePlate(firstPlate);
+      setParkingZone(firstZone);
 
       const city = findCityByPlate(firstPlate);
       console.log('Detected city:', city);
@@ -116,7 +115,7 @@ const OcrScanScreen = ({ navigation, route }) => {
       alert('Neuspešno prepoznavanje teksta. Pokušajte da uredite sliku.');
       setShowResult(false);
     }
-  };
+  }, []);
 
   const handleEdit = async () => {
     if (!imageUri) {

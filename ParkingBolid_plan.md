@@ -1,7 +1,9 @@
 # ParkingBolid - Project Plan and Goals
 
 ## Overview
-ParkingBolid is a React Native mobile application designed to simplify parking payment via SMS in cities across Serbia. The app aims to provide a user-friendly, fast, and reliable experience, with smart features like OCR-based scanning, automatic city detection, easy vehicle management, and a clear UI.
+ParkingBolid is a React Native mobile application designed to simplify parking payment via SMS in cities across Serbia. The app aims to provide a user-friendly, fast, and reliable experience, with smart features like automatic city detection, easy vehicle management, and a clear UI.
+
+> **Note:** OCR-based features are not implemented yet, but are planned. See the dedicated section below.
 
 ---
 
@@ -16,7 +18,7 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
 - **SMS payment integration** using device's default SMS app.
 - **Offline-first**: all zone data stored locally in JSON.
 - **Extensible** for future features (e.g., online payments, notifications).
-- **OCR scanning** for automatic recognition of license plates and parking zone codes.
+- OCR-based scanning for automatic recognition of license plates and parking zone codes.
 
 ---
 
@@ -26,7 +28,8 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
 - **Editable dropdown menu** to manually select or override the city.
 - **Persistent city selection** during app session.
 - **Local JSON database** of cities with coordinates and parking zones.
-- **OCR scanning of parking zone signs** to quickly identify the correct zone code.
+- OCR-based scanning of parking zone signs to quickly identify the correct zone code.
+
 
 ### 2. Parking Zones
 - Display **zones for the selected city** with:
@@ -38,13 +41,13 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
 - **Tap to select** a parking zone.
 ### 3. Vehicle Management
 - **Add, edit, delete** multiple license plates.
-- **Scan license plates via OCR** to add vehicles quickly without manual typing.
+- Scanning license plates to add vehicles quickly without manual typing.
 - **Optional nicknames** for vehicles.
 - **Persistent storage** using AsyncStorage.
 - **Select active vehicle** for payment.
 ### 4. SMS Payment
 - **Generate SMS** with correct number and license plate.
-- **Autofill license plate and zone code** using OCR results to reduce manual input.
+- Autofill license plate and zone code to reduce manual input.
 - **Open default SMS app** with pre-filled message.
 - **User confirms and sends** the SMS manually.
 
@@ -63,11 +66,6 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
 
 ---
 
-### 7. OCR Scanning
-- **Scan license plates and parking zone signs** using the device camera.
-- **Automatic detection, extraction, and validation** of text.
-- **Autofill** license plate and zone fields to minimize manual input.
-- **Manual correction** option if recognition is uncertain.
 
 ---
 
@@ -80,9 +78,9 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
 - **react-native-vector-icons** for icons
 - **Local JSON files** for parking zones data
 - **react-native-vision-camera** for camera access and live preview
-- **Google ML Kit** for on-device OCR and object detection
-- **TensorFlow Lite** for custom detection models
-- **Custom image preprocessing** with JavaScript and native modules
+- Google ML Kit for on-device OCR and object detection (planned)
+- TensorFlow Lite for custom detection models (planned)
+- Custom image preprocessing with JavaScript and native modules (planned)
 
 ---
 
@@ -110,16 +108,19 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
 - **Multi-language support**.
 - **Light/dark mode toggle**.
 - **Accessibility improvements**.
-- **Enhanced OCR accuracy** and support for additional languages/scripts.
+- Enhanced OCR accuracy and support for additional languages/scripts.
+  > **Note:** OCR-based features are not implemented yet, but are planned. See the dedicated section below.
 
 ---
 
-## OCR & Object Detection Integration
+## Planned Feature: OCR and Related Functionality
+
+> **Note:** The following OCR and object detection features are not implemented yet, but are planned for a future release.
 
 - Streamline parking payment by scanning license plates and parking zone signs.
 - Minimize manual input with automated detection, extraction, and validation.
 
-### Key Features
+### Key Features (Planned)
 
 - **Camera Capture with User Guidance**
   - Overlay guide to align plates/signs.
@@ -155,7 +156,7 @@ ParkingBolid is a React Native mobile application designed to simplify parking p
   - Diverse lighting, angles, designs.
   - Optimize speed and accuracy.
 
-### OCR Pipeline
+### Planned OCR Pipeline
 
 **Capture → Preprocess → Detect → OCR → Validate → Autofill**
 
