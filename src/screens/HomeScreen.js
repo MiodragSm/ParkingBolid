@@ -1,6 +1,6 @@
-import React, { useContext, useLayoutEffect, useState } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import settingIcon from '../assets/settings-icon-gear-3d-render.png';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert, Image, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Linking, Alert, Image } from 'react-native';
 import { APP_VERSION } from '../version';
 import { useNavigation } from '@react-navigation/native';
 import CityPicker from '../components/CityPicker';
@@ -8,7 +8,7 @@ import { ZoneDataContext } from '../contexts/ZoneDataContext';
 import { VehicleContext } from '../contexts/VehicleContext';
 import VehiclePicker from '../components/VehiclePicker';
 const HeaderRight = ({ navigation, onHelpPress }) => (
-  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+  <View style={styles.headerRightContainer}>
     <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
       <Image source={settingIcon} style={styles.headerIcon} />
     </TouchableOpacity>
@@ -258,6 +258,10 @@ const styles = StyleSheet.create({
        color: '#fff',
        marginRight: 15,
    },
+  headerRightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default HomeScreen;
